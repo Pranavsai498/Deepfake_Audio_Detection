@@ -1,0 +1,76 @@
+# Master Project Configuration for Deepfake Audio Detection in Regional Indian Languages
+project_name: "deepfake-audio-indic"
+version: "1.0.0"
+seed: 42
+
+language: "hindi" # Target language: 'hindi', 'bengali', 'telugu', 'tamil'
+
+# Audio Preprocessing Parameters
+audio:
+  sample_rate: 16000
+  target_duration_sec: 3.0
+  n_samples: 48000 # sample_rate * target_duration_sec
+  trim_silence: false
+  top_db: 25
+  normalize_rms: true
+  target_rms: 0.1
+
+# Feature Extraction Parameters (Primary Baseline)
+features:
+  feature_type: "mfcc_delta" # 'mfcc', 'mfcc_delta', 'mel_spectrogram', 'lfcc'
+  n_mfcc: 40
+  n_mels: 80
+  n_fft: 1024
+  hop_length: 160 # 10ms frame step at 16kHz
+  win_length: 400 # 25ms window at 16kHz
+  f_min: 20
+  f_max: 8000
+  include_delta: true
+  include_delta_delta: true
+
+# Dataset & Splitting Strategy
+data:
+  raw_dir: "data/raw"
+  processed_dir: "data/processed"
+  features_dir: "data/features"
+  metadata_file: "data/metadata/dataset_metadata.csv"
+  splits_dir: "data/splits"
+  train_split_ratio: 0.75
+  val_split_ratio: 0.10
+  test_split_ratio: 0.15
+  speaker_independent: true
+  cross_generator_test: true
+
+# Model Architecture Strategy (Sole From-Scratch Architecture: SincNet-GAT)
+models:
+  active_model: "sincnet_gat"
+  
+  sincnet_gat:
+    num_classes: 2
+    sinc_out_channels: 70
+    sinc_kernel_size: 129
+    embed_dim: 64
+    num_heads: 4
+    dropout_rate: 0.2
+
+# Training Strategy & CPU Optimization
+training:
+  device: "cpu"
+  batch_size: 32
+  num_workers: 0 # Windows CPU multiprocessing safe
+  learning_rate: 0.0005
+  weight_decay: 0.0001
+  max_epochs: 25
+  early_stopping_patience: 5
+  class_weights: "balanced" # 'balanced' or null
+  checkpoint_dir: "checkpoints"
+  log_interval: 10
+
+# Evaluation & Metrics
+evaluation:
+  primary_metric: "eer"
+  secondary_metrics: ["accuracy", "precision", "recall", "f1", "roc_auc"]
+  threshold_strategy: "eer_optimal"
+  results_dir: "results"
+  figures_dir: "report/figures"
+  tables_dir: "report/tables"

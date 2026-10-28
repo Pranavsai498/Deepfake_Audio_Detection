@@ -1,0 +1,94 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyd
+
+# C extensions
+*.so
+
+# Distribution / packaging
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environments
+venv/
+.venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# Audio Data & Raw Media (Exclude large raw audio binaries, preserve metadata CSVs and docs)
+*.wav
+*.mp3
+*.flac
+*.ogg
+*.m4a
+data/raw/synthetic_voices_dataset/audio/
+!data/metadata/*.csv
+!data/**/*.csv
+!data/**/*.md
+!data/**/*.txt
+
+# PyTorch Checkpoints & Backups
+checkpoints/*.pth
+checkpoints/*_backup.pt
+checkpoints/epoch_*.pt
+# Keep the primary best detector checkpoint (1.38 MB fits easily on GitHub)
+!checkpoints/best_detector.pt
+
+# LaTeX Build Artifacts
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.nav
+*.out
+*.run.xml
+*.snm
+*.synctex.gz
+*.toc
+*.vrb
+
+# Gradio & Web Demo Artifacts
+flagged/
+gradio_cached_examples/
+.gradio/
+
+# IDE & Editor Files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.directory
+
+# Operating System Files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Logs & Temporary Files
+*.log
+scratch/
+tmp/
+temp/
